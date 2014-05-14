@@ -38,9 +38,18 @@
 				<td><c:out value="${contact.name}" /></td>
 				<td><c:out value="${contact.age}" /></td>
 				<td><c:out value="${contact.address}" /></td>
+				
+				<c:if test="${role eq 'ROLE_ADMIN'}">
+					<td>Edit</td>
+					<td>Delete</td>
+				</c:if>
 			</tr>
 
 		</c:forEach>
 	</table>
+
+	<c:if test="${role eq 'ROLE_ADMIN'}">
+		<h4>Add new</h4>
+	</c:if>
 </body>
 </html>
