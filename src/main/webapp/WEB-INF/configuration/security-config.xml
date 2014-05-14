@@ -6,8 +6,8 @@
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
-
-<!-- 	<http pattern="/login" security="none" /> -->
+	
+	<beans:import resource="datasource-config.xml" />
 	
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="true">

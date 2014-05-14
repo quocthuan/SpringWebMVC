@@ -19,7 +19,7 @@ public class ContactController {
 
 	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	public ModelAndView getContacts() {
-		context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+		context = new ClassPathXmlApplicationContext("get-contacts-modules.xml");
 		ContactJDBC contactJDBC = (ContactJDBC) context.getBean("contactJDBC");
 
 		List<Contact> contactList = contactJDBC.loadAllContacts();
