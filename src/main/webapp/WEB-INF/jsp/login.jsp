@@ -7,43 +7,58 @@
 <%-- <link type="text/css" rel="stylesheet" href="<c:url value='/style.css' />" > --%>
 <title>Login Page</title>
 <style>
+.error {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.msg {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
 #login-box {
-	align: center;
-	width: 250px;
+	width: 300px;
 	padding: 20px;
 	margin: 100px auto;
 	background: #fff;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
 	border: 1px solid #000;
 }
 </style>
 </head>
-<body>
-	<%-- <c:if test="${'fail' eq param.auth}">
-    	<div style="color:red">
-        	Login Failed!!!<br />
-            Reason : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-		</div>
-    </c:if> --%>
-    
+<body onload='document.loginForm.username.focus();'>
 	<div id="login-box">
-		<h2>Login</h2>
-		<form name="loginForm" action="j_spring_security_check" method="post">
-			Username:<input type="text" name="username"> <br />
-			Password:<input type="password" name="password"> <br /> <br />
+		<h3>Login</h3>
+		
+		<c:if test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:if>
+		<c:if test="${not empty msg}">
+			<div class="msg">${msg}</div>
+		</c:if>
+
+		<form name="loginForm" action="<c:url value='/j_spring_security_check' />" method="POST">
+			Username:<input type="text" name="username" /> <br />
+			Password:<input type="password" name="password" /> <br /> <br />
 			<div align="center">
 				<input type="submit" value="Submit">
 			</div>
-			
-		</form>
 
-		<%-- <%
-         	String errorString = (String)request.getAttribute("error");
-         	if(errorString != null && errorString.trim().equals("true")) {
-           		out.println("Incorrect login name or password. Please retry using correct login name and password.");
-         	}
-         %> --%>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
 	</div>
 </body>
 </html>

@@ -28,11 +28,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<welcome-file-list>
-		<welcome-file>jsp/login.jsp</welcome-file>
-	</welcome-file-list>
-
-	<!-- <filter>
+	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -40,5 +36,9 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>/login</welcome-file>
+	</welcome-file-list>
 </web-app>

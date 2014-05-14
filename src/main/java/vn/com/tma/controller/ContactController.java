@@ -8,23 +8,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.tma.dao.ContactJDBC;
 import vn.com.tma.model.Contact;
 
 @Controller
-@RequestMapping("/contacts")
 public class ContactController {
-private ApplicationContext context;
+	private ApplicationContext context;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String getContact(ModelMap model) {
+	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
+	public ModelAndView getContacts() {
 		context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 		ContactJDBC contactJDBC = (ContactJDBC) context.getBean("contactJDBC");
-		
-		List<Contact> contactList = contactJDBC.loadAllContacts();
-		model.addAttribute("contactList", contactList);
 
-		return "contacts";
+		List<Contact> contactList = contactJDBC.loadAllContacts();
+		
+		ModelAndView model = new ModelAndView();
+		model.addObject("contactList", contactList);
+		model.setViewName("contacts");
+
+		return model;
 	}
 }

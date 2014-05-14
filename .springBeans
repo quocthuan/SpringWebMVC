@@ -9,9 +9,9 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml</config>
 		<config>src/main/resources/contact-config.xml</config>
+		<config>src/main/resources/Spring-Module.xml</config>
 		<config>src/main/resources/datasource-config.xml</config>
 		<config>src/main/resources/security-config.xml</config>
-		<config>src/main/resources/Spring-Module.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
