@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<import resource="datasource-config.xml" />
+	<!-- <import resource="datasource-config.xml" /> -->
 
 	<bean id="contactJDBC" class="vn.com.tma.dao.ContactJDBC">
 		<property name="dataSource" ref="dataSource" />

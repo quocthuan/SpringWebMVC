@@ -1,6 +1,7 @@
 package vn.com.tma.dao;
 
 import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,6 +44,29 @@ public class ContactJDBC implements IContactDao {
 		}
 	}
 
+	public void delete(String contactId) {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM contact WHERE contactid = " + contactId;
+		Connection conn = null;
+ 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+ 
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+ 
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
 	public Contact findContactById(int contactId) {
 		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM contact WHERE contactId = ?";
