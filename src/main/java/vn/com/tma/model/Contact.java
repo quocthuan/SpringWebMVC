@@ -6,12 +6,20 @@ public class Contact {
 	private int age;
 	private String address;
 	
-	public Contact(int contactId, String name, int age, String address) {
+	public Contact() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Contact(String name, int age, String address) {
 		super();
-		this.contactId = contactId;
 		this.name = name;
 		this.age = age;
 		this.address = address;
+	}
+	
+	public Contact(int contactId, String name, int age, String address) {
+		this(name, age, address);
+		this.contactId = contactId;
 	}
 	/**
 	 * @return the contactId

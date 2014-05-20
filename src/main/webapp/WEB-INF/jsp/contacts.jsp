@@ -48,7 +48,7 @@
 	</table>
 
 	<c:if test="${role eq 'ROLE_ADMIN'}">
-		<h4><a href="newContact">Add new</h4>
+		<h4><a href="contacts/newContact">Add new</h4>
 	</c:if>
 </body>
 </html>

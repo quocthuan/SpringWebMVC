@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,44 +23,21 @@ import vn.com.tma.model.Contact;
 public class ContactController {
 	private ApplicationContext context;
 
+	public ContactController() {
+		// TODO Auto-generated constructor stub
+		this.context = new ClassPathXmlApplicationContext("get-contacts-modules.xml");
+	}
+
 	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	public ModelAndView getContacts() {
-		context = new ClassPathXmlApplicationContext("get-contacts-modules.xml");
-
-		ContactJDBC contactJDBC = (ContactJDBC) context.getBean("contactJDBC");
+		ContactJDBC contactJDBC = (ContactJDBC) this.context
+				.getBean("contactJDBC");
 		List<Contact> contactList = contactJDBC.loadAllContacts();
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("contactList", contactList);
 		model.setViewName("contacts");
 
-		this.checkLogin(model);
-		
-		return model;
-	}
-	
-	@RequestMapping(value = "/contacts/delete", method = RequestMethod.GET)
-	public ModelAndView deleteContacts(@RequestParam(value = "id", required = true) String contactId) {
-		context = new ClassPathXmlApplicationContext("get-contacts-modules.xml");
-
-		ContactJDBC contactJDBC = (ContactJDBC) context.getBean("contactJDBC");
-		contactJDBC.delete(contactId);
-		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("redirect:/contacts");
-
-		return model;
-	}
-	
-	@RequestMapping(value = "/contacts/addContact", method = RequestMethod.POST)
-	public ModelAndView addNewContact () {
-		ModelAndView model = new ModelAndView();
-		System.out.println("-------------------------------- Add contact");
-		model.setViewName("contacts");
-		return model;
-	}
-	
-	private void checkLogin(ModelAndView model) {
 		// check if user is login
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
@@ -73,5 +51,45 @@ public class ContactController {
 
 			model.addObject("username", userDetail.getUsername());
 		}
+
+		return model;
 	}
+
+	@RequestMapping(value = "/contacts/newContact", method = RequestMethod.GET)
+	public ModelAndView showAddContact() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("newContact");
+
+		return model;
+	}
+	
+	@RequestMapping(value = "/contacts/newContact", method = RequestMethod.POST)
+	public ModelAndView addNewContact(@ModelAttribute("contact") Contact contact) {
+		ContactJDBC contactJDBC = (ContactJDBC) this.context.getBean("contactJDBC");
+		contactJDBC.insert(contact);
+
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("redirect:/contacts");
+		return model;
+	}
+	
+	@RequestMapping(value = "/contacts/delete", method = RequestMethod.GET)
+	public ModelAndView deleteContacts(
+			@RequestParam(value = "id", required = true) String contactId) {
+		ContactJDBC contactJDBC = (ContactJDBC) this.context
+				.getBean("contactJDBC");
+		contactJDBC.delete(contactId);
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:/contacts");
+
+		return model;
+	}
+
+	@ModelAttribute("contact")
+	public Contact createContact() {
+	    return new Contact();
+	}
+
 }

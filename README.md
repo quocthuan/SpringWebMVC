@@ -11,3 +11,6 @@ JDK 1.7
 Maven 3
 Tomcat 6 or 7 (Servlet 3.x)
 PostgreSQL 9.1-901.jdbc4
+
+---Init Postgre database server
+initdb -U postgres -E utf8 -W -D <postgres_data_directory>
