@@ -40,7 +40,7 @@
 				<td><c:out value="${contact.address}" /></td>
 				
 				<c:if test="${role eq 'ROLE_ADMIN'}">
-					<td><a href='#'>Edit</a>  <a href='contacts/delete?id=${contact.contactId}'>Delete</a></td>
+					<td><a href='contacts/edit?id=${contact.contactId}'>Edit</a>  <a href='contacts/delete?id=${contact.contactId}'>Delete</a></td>
 				</c:if>
 			</tr>
 
@@ -48,7 +48,7 @@
 	</table>
 
 	<c:if test="${role eq 'ROLE_ADMIN'}">
-		<h4><a href="contacts/newContact">Add new</h4>
+		<h4><a href="contacts/showContact">Add new</h4>
 	</c:if>
 </body>
 </html>

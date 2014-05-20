@@ -44,7 +44,7 @@ public class ContactJDBC implements IContactDao {
 		}
 	}
 
-	public void delete(String contactId) {
+	public void delete(int contactId) {
 		// TODO Auto-generated method stub
 		String sql = "DELETE FROM contact WHERE contactid = " + contactId;
 		Connection conn = null;
@@ -52,6 +52,33 @@ public class ContactJDBC implements IContactDao {
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+ 
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+ 
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	public void update(Contact contact) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE contact SET name = ?, age = ?, address = ? WHERE contactid = ?";
+		Connection conn = null;
+ 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, contact.getName());
+			ps.setInt(2, contact.getAge());
+			ps.setString(3, contact.getAddress());
+			ps.setInt(4, contact.getContactId());
 			ps.executeUpdate();
 			ps.close();
  

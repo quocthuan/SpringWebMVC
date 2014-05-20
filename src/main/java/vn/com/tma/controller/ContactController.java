@@ -22,25 +22,24 @@ import vn.com.tma.model.Contact;
 @Controller
 public class ContactController {
 	private ApplicationContext context;
+	private ContactJDBC contactJDBC;
 
 	public ContactController() {
 		// TODO Auto-generated constructor stub
 		this.context = new ClassPathXmlApplicationContext("get-contacts-modules.xml");
+		this.contactJDBC = (ContactJDBC) this.context.getBean("contactJDBC");
 	}
 
 	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	public ModelAndView getContacts() {
-		ContactJDBC contactJDBC = (ContactJDBC) this.context
-				.getBean("contactJDBC");
-		List<Contact> contactList = contactJDBC.loadAllContacts();
+		List<Contact> contactList = this.contactJDBC.loadAllContacts();
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("contactList", contactList);
 		model.setViewName("contacts");
 
 		// check if user is login
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
@@ -55,18 +54,17 @@ public class ContactController {
 		return model;
 	}
 
-	@RequestMapping(value = "/contacts/newContact", method = RequestMethod.GET)
+	@RequestMapping(value = "/contacts/showContact", method = RequestMethod.GET)
 	public ModelAndView showAddContact() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("newContact");
+		model.setViewName("showContact");
 
 		return model;
 	}
 	
-	@RequestMapping(value = "/contacts/newContact", method = RequestMethod.POST)
+	@RequestMapping(value = "/contacts/showContact", method = RequestMethod.POST)
 	public ModelAndView addNewContact(@ModelAttribute("contact") Contact contact) {
-		ContactJDBC contactJDBC = (ContactJDBC) this.context.getBean("contactJDBC");
-		contactJDBC.insert(contact);
+		this.contactJDBC.insert(contact);
 
 		ModelAndView model = new ModelAndView();
 
@@ -75,11 +73,33 @@ public class ContactController {
 	}
 	
 	@RequestMapping(value = "/contacts/delete", method = RequestMethod.GET)
-	public ModelAndView deleteContacts(
-			@RequestParam(value = "id", required = true) String contactId) {
-		ContactJDBC contactJDBC = (ContactJDBC) this.context
-				.getBean("contactJDBC");
-		contactJDBC.delete(contactId);
+	public ModelAndView deleteContacts(@RequestParam(value = "id", required = true) int contactId) {
+		this.contactJDBC.delete(contactId);
+
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:/contacts");
+
+		return model;
+	}
+	
+	@RequestMapping(value = "/contacts/edit", method = RequestMethod.GET)
+	public ModelAndView showEditContact(@RequestParam(value = "id", required = true) int contactId) {
+		Contact editContact = this.contactJDBC.findContactById(contactId);
+		ModelAndView model = new ModelAndView();
+		
+		if (editContact != null) {
+			model.addObject("contact", editContact);
+			model.addObject("editMode", true);
+		}
+		
+		model.setViewName("showContact");
+
+		return model;
+	}
+	
+	@RequestMapping(value = "/contacts/edit", method = RequestMethod.POST)
+	public ModelAndView editContacts(@ModelAttribute("contact") Contact contact) {
+		this.contactJDBC.update(contact);
 
 		ModelAndView model = new ModelAndView();
 		model.setViewName("redirect:/contacts");

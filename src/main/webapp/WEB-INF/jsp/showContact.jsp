@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-	<form:form action="newContact" modelAttribute="contact" method="POST">
+	<form:form action="showContact" modelAttribute="contact" method="POST">
 
 		<%-- <form:errors path="*" cssClass="errorblock" element="div" /> --%>
 
@@ -43,19 +43,17 @@
 			<%-- <form:hidden path="secretValue" /> --%>
 
 			<tr>
-				<td colspan="3"><input type="submit" value="Add contact"/></td>
+				<c:choose>
+					<c:when test="${editMode}">
+						<td colspan="3"><input type="submit" value="Update contact"/></td>
+					</c:when>
+					<c:otherwise>
+						<td colspan="3"><input type="submit" value="Add contact"/></td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 		</table>
+
 	</form:form>
-
-	<%-- <form name="newContactForm" action="newContact" method="POST">
-		Name:<input type="text" name="name" /> <br /> 
-		Age:<input type="text" name="age" /> <br />
-		Address:<input type="text" name="address" /> <br />
-		
-		<br /> <br />
-		<input type="submit" value="Add">
-	</form> --%>
-
 </body>
 </html>
