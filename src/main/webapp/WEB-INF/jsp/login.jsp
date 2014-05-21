@@ -50,8 +50,8 @@
 		</c:if>
 
 		<form name="loginForm" action="<c:url value='/j_spring_security_check' />" method="POST">
-			Username:<input type="text" name="username" value="admin" /> <br />
-			Password:<input type="password" name="password" value="admin"/> <br /> <br />
+			Username:<input type="text" name="username" /> <br />
+			Password:<input type="password" name="password" /> <br /> <br />
 			<div align="center">
 				<input type="submit" value="Submit">
 			</div>

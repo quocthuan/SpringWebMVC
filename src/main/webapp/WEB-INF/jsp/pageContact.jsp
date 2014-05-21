@@ -19,7 +19,18 @@
 </style>
 </head>
 <body>
-	<form:form action="showContact" modelAttribute="contact" method="POST">
+	<c:choose>
+		<c:when test="${contact.contactId != 0}">
+			<c:set var="actionText" scope="session" value="Update"/>
+			<c:set var="actionForm" scope="session" value="update" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="actionText" scope="request" value="Add"/>
+			<c:set var="actionForm" scope="request" value="add" />
+		</c:otherwise>
+	</c:choose>
+
+	<form:form action="${actionForm}" modelAttribute="contact" method="POST">
 
 		<%-- <form:errors path="*" cssClass="errorblock" element="div" /> --%>
 
@@ -45,15 +56,16 @@
 			<tr>
 				<c:choose>
 					<c:when test="${editMode}">
-						<td colspan="3"><input type="submit" value="Update contact"/></td>
+						<td colspan="3"><input type="submit" value="${actionText}"/></td>
 					</c:when>
 					<c:otherwise>
-						<td colspan="3"><input type="submit" value="Add contact"/></td>
+						<td colspan="3"><input type="submit" value="${actionText}"/></td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
 		</table>
 
+		<form:hidden path="contactId"/>
 	</form:form>
 </body>
 </html>

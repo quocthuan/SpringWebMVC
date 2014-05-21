@@ -40,7 +40,7 @@
 				<td><c:out value="${contact.address}" /></td>
 				
 				<c:if test="${role eq 'ROLE_ADMIN'}">
-					<td><a href='contacts/edit?id=${contact.contactId}'>Edit</a>  <a href='contacts/delete?id=${contact.contactId}'>Delete</a></td>
+					<td><a href='contacts/update?id=${contact.contactId}'>Edit</a>  <a href='contacts/delete?id=${contact.contactId}'>Delete</a></td>
 				</c:if>
 			</tr>
 
@@ -48,7 +48,8 @@
 	</table>
 
 	<c:if test="${role eq 'ROLE_ADMIN'}">
-		<h4><a href="contacts/showContact">Add new</h4>
+		<h4><a href="contacts/add">Add new</h4>
+		<h4><a href="http://192.168.106.219:8080/pointclickcare/parameterReport">Generate report</h4>
 	</c:if>
 </body>
 </html>

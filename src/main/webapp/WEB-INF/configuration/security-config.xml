@@ -10,9 +10,10 @@
 	<!-- <beans:import resource="datasource-config.xml" /> -->
 	
 	<!-- enable use-expressions -->
-	<http pattern="/*"  auto-config="true" use-expressions="true">
+	<http auto-config="true" use-expressions="true">
+		
 		<intercept-url pattern="/contacts" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
-		<intercept-url pattern="/newContact" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/contacts/**" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />

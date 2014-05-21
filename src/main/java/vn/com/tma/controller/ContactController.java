@@ -54,15 +54,15 @@ public class ContactController {
 		return model;
 	}
 
-	@RequestMapping(value = "/contacts/showContact", method = RequestMethod.GET)
+	@RequestMapping(value = "/contacts/add", method = RequestMethod.GET)
 	public ModelAndView showAddContact() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("showContact");
+		model.setViewName("pageContact");
 
 		return model;
 	}
 	
-	@RequestMapping(value = "/contacts/showContact", method = RequestMethod.POST)
+	@RequestMapping(value = "/contacts/add", method = RequestMethod.POST)
 	public ModelAndView addNewContact(@ModelAttribute("contact") Contact contact) {
 		this.contactJDBC.insert(contact);
 
@@ -82,23 +82,22 @@ public class ContactController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/contacts/edit", method = RequestMethod.GET)
-	public ModelAndView showEditContact(@RequestParam(value = "id", required = true) int contactId) {
+	@RequestMapping(value = "/contacts/update", method = RequestMethod.GET)
+	public ModelAndView showUpdateContact(@RequestParam(value = "id", required = true) int contactId) {
 		Contact editContact = this.contactJDBC.findContactById(contactId);
 		ModelAndView model = new ModelAndView();
 		
 		if (editContact != null) {
 			model.addObject("contact", editContact);
-			model.addObject("editMode", true);
 		}
 		
-		model.setViewName("showContact");
+		model.setViewName("pageContact");
 
 		return model;
 	}
 	
-	@RequestMapping(value = "/contacts/edit", method = RequestMethod.POST)
-	public ModelAndView editContacts(@ModelAttribute("contact") Contact contact) {
+	@RequestMapping(value = "/contacts/update", method = RequestMethod.POST)
+	public ModelAndView updateContacts(@ModelAttribute("contact") Contact contact) {
 		this.contactJDBC.update(contact);
 
 		ModelAndView model = new ModelAndView();

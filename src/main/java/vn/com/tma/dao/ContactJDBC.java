@@ -128,7 +128,7 @@ public class ContactJDBC implements IContactDao {
 	
 	public List<Contact> loadAllContacts() {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM contact";
+		String sql = "SELECT * FROM contact ORDER BY contactId ASC";
 		 
 		Connection conn = null;
  
