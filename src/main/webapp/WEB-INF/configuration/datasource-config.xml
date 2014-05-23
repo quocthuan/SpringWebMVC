@@ -10,7 +10,5 @@
 		<property name="url" value="jdbc:postgresql://localhost:5432/contactDB" />
 		<property name="username" value="postgres" />
  		<property name="password" value="root" />
-
 	</bean>
-
 </beans>

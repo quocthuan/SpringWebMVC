@@ -94,6 +94,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Cassandra -->
+		<dependency>
+			<groupId>com.tma</groupId>
+			<artifactId>cassandra</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -21,6 +21,9 @@
 		<h4>
 			Welcome : ${pageContext.request.userPrincipal.name} | <a href="javascript:formSubmit()"> Logout</a>
 		</h4>
+		<c:if test="${role eq 'ROLE_ADMIN'}">
+			<h4><a href="contacts/add">Add new contact</a></h4>
+		</c:if>
 	</c:if>
 
 	<h2>Contact list:</h2>
@@ -48,8 +51,21 @@
 	</table>
 
 	<c:if test="${role eq 'ROLE_ADMIN'}">
-		<h4><a href="contacts/add">Add new</h4>
-		<h4><a href="http://192.168.106.219:8080/pointclickcare/parameterReport">Generate report</h4>
+		<h4><a href="http://192.168.106.149:8080/pointclickcare/parameterReport">Report generating</a></h4>
+		<h4><a href="contacts/generatedData">Data generating</a></h4>
+		<h4><a href="contacts/generated">View generated data</a></h4>
 	</c:if>
+
+	<c:out value="Val: + ${gene}" />
+
+	<!-- Show generated data alert -->
+	<c:if test="${gene == true}">
+		<c:set var="gene" value="false"/>
+		<script type="text/javascript">
+			alert("ABC");
+		</script>
+				<!-- <h4><a href="javascript:alert()">Alert</a></h4> -->
+	</c:if>
+	
 </body>
 </html>
