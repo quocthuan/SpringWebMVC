@@ -8,16 +8,17 @@
 <title>Contact List</title>
 
 <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-
+<script src="<c:url value="/resources/js/jquery.blockUI.js" />"></script>
 <script>
 	function formSubmit() {
 		document.getElementById("logoutForm").submit();
 	}
 	
 	function generatedData() {
+		var imagePath = "${pageContext.request.contextPath}/resources/images/busy.gif";
+		$.blockUI({message: '<div style="align:center"><p><img width="32px" height="32px" src="' + imagePath + '" /></p> <p>Data generating...</p></div>'});
  		$.get("http://" + location.host + "/SpringWebMVC/service/generatedContact", function(data) {
- 			console.log('data ' + data);
-			alert("Done");
+ 			$.unblockUI();
 		});
 	}
 	
