@@ -14,7 +14,7 @@
 		<jstl.version>1.2</jstl.version>
 		<taglibs.version>1.1.2</taglibs.version>
 		<junit.version>3.8.1</junit.version>
-		
+
 		<spring.version>4.0.4.RELEASE</spring.version>
 		<spring.sercurity.version>3.2.3.RELEASE</spring.sercurity.version>
 	</properties>
@@ -79,14 +79,14 @@
 			<artifactId>standard</artifactId>
 			<version>${taglibs.version}</version>
 		</dependency>
-		
+
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
-		
+
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -94,13 +94,21 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Cassandra -->
 		<dependency>
 			<groupId>com.tma</groupId>
 			<artifactId>cassandra</artifactId>
 			<version>1.0.0.RELEASE</version>
 		</dependency>
+
+		<!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>

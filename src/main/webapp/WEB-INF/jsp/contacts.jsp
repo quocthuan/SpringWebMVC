@@ -1,13 +1,26 @@
+<%@page import="org.springframework.context.annotation.Import"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page session="true"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Contact List</title>
+
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+
 <script>
 	function formSubmit() {
 		document.getElementById("logoutForm").submit();
 	}
+	
+	function generatedData() {
+ 		$.get("http://" + location.host + "/SpringWebMVC/service/generatedContact", function(data) {
+ 			console.log('data ' + data);
+			alert("Done");
+		});
+	}
+	
 </script>
 
 </head>
@@ -51,21 +64,10 @@
 	</table>
 
 	<c:if test="${role eq 'ROLE_ADMIN'}">
-		<h4><a href="http://192.168.106.149:8080/pointclickcare/parameterReport">Report generating</a></h4>
-		<h4><a href="contacts/generatedData">Data generating</a></h4>
+		<h4><a href="http://<spring:eval expression="@propertyConfigurer.getProperty('cassandra.report.host.url_seed')" />:8080/pointclickcare/parameterReport">Report generating</a></h4>
+		<h4><a href="javascript:generatedData()">Data generating</a></h4>
 		<h4><a href="contacts/generated">View generated data</a></h4>
 	</c:if>
 
-	<c:out value="Val: + ${gene}" />
-
-	<!-- Show generated data alert -->
-	<c:if test="${gene == true}">
-		<c:set var="gene" value="false"/>
-		<script type="text/javascript">
-			alert("ABC");
-		</script>
-				<!-- <h4><a href="javascript:alert()">Alert</a></h4> -->
-	</c:if>
-	
 </body>
 </html>
