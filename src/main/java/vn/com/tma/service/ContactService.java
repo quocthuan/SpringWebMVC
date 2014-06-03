@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -43,7 +44,7 @@ public class ContactService {
 	@RequestMapping(value = "/service/generatedContact", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public boolean generatedContacts() {
+	public boolean generatedContacts(@RequestParam(value="records", required=true) int numberRecords ) {
 		cassandraContext = new ClassPathXmlApplicationContext(
 				"classpath*:cassandra_context.xml");
 
@@ -60,7 +61,7 @@ public class ContactService {
 		EventRecord eventRecord;
 		System.out.print("Generating data ");
 		String date = Calendar.getInstance().getTime().getMonth() + "/" + Calendar.getInstance().getTime().getDate() + "/" + (Calendar.getInstance().getTime().getYear() + 1900);
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < numberRecords; i++) {
 			eventRecord = new EventRecord("abhowt", facId, eventTimeStamp,
 					new Integer(1), new Integer(1),
 					AuditActionEnum.forValue(randInt(1, 8)), values,

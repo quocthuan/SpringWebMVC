@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" >
 <title>New contact</title>
 <style>
 .error {
@@ -30,14 +31,15 @@
 		</c:otherwise>
 	</c:choose>
 
+	<div id="input-data-box">
 	<form:form action="${actionForm}" modelAttribute="contact" method="POST">
 
 		<%-- <form:errors path="*" cssClass="errorblock" element="div" /> --%>
-
+		<h3>${actionText} contact</h3>
 		<table>
 			<tr>
 				<td><form:label path="name">Name:</form:label></td>
-				<td><form:input path="name" /></td>
+				<td><form:input path="name" width="250px"/></td>
 				<%-- <td><form:errors path="name" cssClass="error" /></td> --%>
 			</tr>
 			<tr>
@@ -52,20 +54,20 @@
 			</tr>
 
 			<%-- <form:hidden path="secretValue" /> --%>
-
-			<tr>
-				<c:choose>
-					<c:when test="${editMode}">
-						<td colspan="3"><input type="submit" value="${actionText}"/></td>
-					</c:when>
-					<c:otherwise>
-						<td colspan="3"><input type="submit" value="${actionText}"/></td>
-					</c:otherwise>
-				</c:choose>
-			</tr>
 		</table>
+		<div style="align:center">
+			<c:choose>
+				<c:when test="${editMode}">
+					<input type="submit" value="${actionText}"/>					
+				</c:when>
+				<c:otherwise>
+					<input type="submit" value="${actionText}"/>
+				</c:otherwise>
+			</c:choose>
+		</div>
 
 		<form:hidden path="contactId"/>
 	</form:form>
+	</div>
 </body>
 </html>
